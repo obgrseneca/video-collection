@@ -61,7 +61,7 @@
 </head>
 
 <body>
-<h1>Video-Collection - New user</h1>
+<h1>Video-Collection - Edit user</h1>
 <p>
     <input type="hidden" value="{$user.id}" />
     <label for="userName">User name</label>
