@@ -1,0 +1,6 @@
+<?php
+$this->dbHost = '%HOSTNAME%';
+$this->dbUser = '%USER%';
+$this->dbPassword = '%PASSWORD%';
+$this->dbName = '%DATABASE%';
+?>

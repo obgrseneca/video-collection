@@ -1,0 +1,7 @@
+.idea
+test.*
+*~
+*.old
+config.inc
+smarty/cache/*
+smarty/templates_c/*
