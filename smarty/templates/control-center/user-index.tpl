@@ -11,7 +11,7 @@
                 },
                 success: function (data) {
                     if (data) {
-                        window.location = '{/literal}{$baseUrl}{literal}control-center/user/';
+                        vcMain.showMainView('control-center/user/');
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -27,10 +27,9 @@
 </script>
 {/literal}
 
-<h1>Video-Collection - Users</h1>
+<h2>Users</h2>
 <p>
-    <a href="{$baseUrl}control-center/user/add/">Add user</a>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;<a
-            href="{$baseUrl}control-center/">Back</a>
+    <a href="#" onclick="vcMain.showMainView('control-center/user/add/');">Add user</a>
 </p>
 <table>
     <tr>
@@ -46,7 +45,7 @@
             <td>{$uRow.email}</td>
             <td>{$uRow.type_name}</td>
             <td>{if $userType == 'Administrator' OR $uRow.name == $userName}
-                    <a href="{$baseUrl}control-center/user/edit/?userId={$uRow.id}">Edit</a>
+                    <a href="#" onclick="vcMain.showMainView('control-center/user/edit/?userId={$uRow.id}')">Edit</a>
                 {/if}</td>
             <td>{if $userType == 'Administrator' AND $uRow.name != $userName}
                     <a href="#" onclick="deleteUser('{$uRow.id}', '{$uRow.name}');">Delete</a>

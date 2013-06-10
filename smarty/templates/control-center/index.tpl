@@ -14,13 +14,14 @@
     {literal}
     <script type="text/javascript">
         var vcMain;
+        {/literal}var baseUrl = '{$baseUrl}';{literal}
         $(document).ready(function() {
-            vcMain = new VcMainClass('{/literal}{$baseUrl}{literal}');
+            vcMain = new VcMainClass(baseUrl);
 
             vcMain.showMainView('control-center/movie/');
 
             $('#logoutNow').click(function() {
-                vcMain.logoutNow('{/literal}{$baseUrl}{literal}login/logout.php');
+                vcMain.logoutNow(baseUrl + 'login/logout.php');
             });
 
             $('#userManagement').click(function() {
@@ -29,6 +30,10 @@
 
             $('#genreManagement').click(function() {
                 vcMain.showMainView('control-center/genre/');
+            });
+
+            $('#movieManagement').click(function() {
+                vcMain.showMainView('control-center/movie/');
             });
         });
     </script>
@@ -39,6 +44,7 @@
 <h1>Video-Collection - Control-Center</h1>
 <div id="menuContainer">
     {if $userType == 'Administrator' OR $userType == 'Standard'}
+        <a href="#" id="movieManagement">Movie management</a><br />
         <a href="#" id="userManagement">User management</a><br />
         <a href="#" id="genreManagement">Genre management</a><br /><br />
     {/if}

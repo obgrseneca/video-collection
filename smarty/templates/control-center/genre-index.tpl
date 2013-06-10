@@ -11,7 +11,7 @@
                 },
                 success: function (data) {
                     if (data) {
-                        window.location = '{/literal}{$baseUrl}{literal}control-center/genre/';
+                        vcMain.showMainView('control-center/genre/');
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -27,13 +27,11 @@
 </script>
 {/literal}
 
-<h1>Video-Collection - Genres</h1>
+<h2>Genres</h2>
 <p>
     {if $userType == 'Administrator' OR $userType == 'Standard'}
-        <a href="{$baseUrl}control-center/genre/add/">Add genre</a>
-        &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
+        <a href="#" onclick="vcMain.showMainView('control-center/genre/add/');">Add genre</a>
     {/if}
-    <a href="{$baseUrl}control-center/">Back</a>
 </p>
 <table>
     <tr>
@@ -45,7 +43,7 @@
         <tr>
             <td>{$gRow.name}</td>
             <td>{if $userType == 'Administrator' OR $userType == 'Standard'}
-                    <a href="{$baseUrl}control-center/genre/edit/?genreId={$gRow.id}">Edit</a>
+                    <a href="#" onclick="vcMain.showMainView('control-center/genre/edit/?genreId={$gRow.id}')">Edit</a>
                 {/if}</td>
             <td>{if $userType == 'Administrator'  OR $userType == 'Standard'}
                     <a href="#" onclick="deleteGenre('{$gRow.id}', '{$gRow.name}');">Delete</a>

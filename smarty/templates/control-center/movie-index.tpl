@@ -1,4 +1,4 @@
-<h1>Video-Collection - Users</h1>
+<h2>Movies</h2>
 <p>
 <table>
     <tr>

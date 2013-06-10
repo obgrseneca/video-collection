@@ -47,6 +47,7 @@
                     success: function(data) {
                         if (data) {
                             $('#createDb').removeAttr('disabled');
+                            $('#checkDb').removeAttr('disabled');
                             $('#dbName').css('display','inline');
                             $('#dbHostname').css('display','none');
                             $('#dbHostnameFixed').html(':&nbsp;' + $('#dbHostname').val()).css('display','inline');
@@ -80,6 +81,7 @@
                     success: function(data) {
                         if (data[0] == 1) {
                             $('#createDb').attr('disabled','disabled');
+                            $('#checkDb').attr('disabled','disabled');
                             $('#dbName').css('display','none');
                             $('#dbNameFixed').html(':&nbsp;' + $('#dbName').val()).css('display','inline');
                             $('#writeNow').removeAttr('disabled');
@@ -88,6 +90,43 @@
                             $('#dbName').val('');
                         } else if (data[0] == 3) {
                             alert('Error creating database!');
+                            $('#dbName').val('');
+                        }
+                        console.log(data);
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(jqXHR);
+                    }
+                });
+            });
+
+            $('#checkDb').click(function() {
+                $.ajax({
+                    type: 'post',
+                    url: '{/literal}{$baseUrl}{literal}configuration/checkDbIntegrity.php',
+                    dataType: 'json',
+                    data: {
+                        dbHostname: $('#dbHostname').val(),
+                        dbUser: $('#dbUser').val(),
+                        dbPassword: $('#dbPassword').val(),
+                        dbName: $('#dbName').val()
+                    },
+                    success: function(data) {
+                        if (data['fatal'].length == 0) {
+                            $('#createDb').attr('disabled','disabled');
+                            $('#checkDb').attr('disabled','disabled');
+                            $('#dbName').css('display','none');
+                            $('#dbNameFixed').html(':&nbsp;' + $('#dbName').val()).css('display','inline');
+                            $('#writeNow').removeAttr('disabled');
+                            if (data['warning'] > 0) {
+                                $('#dbWarnings').html(data['warning']).css({display: 'block'});
+                            }
+                        } else {
+                            alert('Problems with database integrity!');
+                            $('#dbWarnings').html(data['warning']).css({display: 'block'});
+                            $('#dbName').val('');
                         }
                         console.log(data);
 
@@ -115,8 +154,10 @@
     <label for="dbName">DB Name</label>
     <input type="text" id="dbName" style="display: none;" /><span id="dbNameFixed" style="display: none;"></span><br /><br />
     <button type="button" id="checkDbSettings">Check db settings</button>
-    <button type="button" id="createDb" disabled="disabled">Create db</button><br /><br />
+    <button type="button" id="createDb" disabled="disabled">Create db</button>
+    <button type="button" id="checkDb" disabled="disabled">Check db</button><br /><br />
     <button type="button" id="writeNow" disabled="disabled">Save</button>
 </p>
+<p id="dbWarnings" style="display: none;"></p>
 </body>
 </html>

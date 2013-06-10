@@ -1,16 +1,4 @@
-<!DOCTYPE HTML>
-
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Video-Collection</title>
-
-    <link rel="stylesheet" type="text/css" href="{$javascriptDir}/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css" />
-
-    <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
-    <script type="text/javascript" src="{$javascriptDir}/sha1.js"></script>
-    {literal}
+{literal}
     <script type="text/javascript">
         function calculatePasswordHash(userName, password) {
             var passwordHash = password;
@@ -36,7 +24,7 @@
                         },
                         success: function(data) {
                             if (data) {
-                                window.location = '{/literal}{$baseUrl}{literal}control-center/user/';
+                                vcMain.showMainView('control-center/user/');
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -48,15 +36,13 @@
                 }
             });
             $('#cancel').click(function() {
-                window.location = '{/literal}{$baseUrl}{literal}control-center/user/';
+                vcMain.showMainView('control-center/user/');
             });
         });
     </script>
-    {/literal}
-</head>
+{/literal}
 
-<body>
-<h1>Video-Collection - New user</h1>
+<h2>New user</h2>
 <p>
     <label for="userName">User name</label>
     <input type="text" id="userName" /><br />
@@ -77,5 +63,3 @@
     <button type="button" id="addUser">Add user</button>
     <button type="button" id="cancel">Cancel</button>
 </p>
-</body>
-</html>
