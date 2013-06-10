@@ -10,23 +10,26 @@
     <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/sha1.js"></script>
-    <script type="text/javascript" src="{$javascriptDir}/vc-main.js"></script>
+    <script type="text/javascript" src="{$javascriptDir}/VcMainClass.js"></script>
     {literal}
     <script type="text/javascript">
+        var vcMain;
         $(document).ready(function() {
+            vcMain = new VcMainClass('{/literal}{$baseUrl}{literal}');
+
+            vcMain.showMainView('control-center/movie/');
+
             $('#logoutNow').click(function() {
-                $.ajax({
-                    type: 'get',
-                    url: '{/literal}{$baseUrl}{literal}login/logout.php',
-                    dataType: 'json',
-                    success: function(data) {
-                        window.location = '{/literal}{$baseUrl}{literal}';
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus);
-                    }
-                });
-            })
+                vcMain.logoutNow('{/literal}{$baseUrl}{literal}login/logout.php');
+            });
+
+            $('#userManagement').click(function() {
+                vcMain.showMainView('control-center/user/');
+            });
+
+            $('#genreManagement').click(function() {
+                vcMain.showMainView('control-center/genre/');
+            });
         });
     </script>
     {/literal}
@@ -34,15 +37,14 @@
 
 <body>
 <h1>Video-Collection - Control-Center</h1>
-<div id="menu">
-    {if $userType == 'Administrator' OR if $userType == 'Standard'}
-        <a href="{$baseUrl}control-center/user/">User management</a><br />
-        <a href="{$baseUrl}control-center/genre/">Genre management</a><br /><br />
+<div id="menuContainer">
+    {if $userType == 'Administrator' OR $userType == 'Standard'}
+        <a href="#" id="userManagement">User management</a><br />
+        <a href="#" id="genreManagement">Genre management</a><br /><br />
     {/if}
-    <a href="{$baseUrl}control-center/genre/">Genre management</a><br /><br />
     <button type="button" id="logoutNow">Log out</button>
 </div>
-<div id="main">
+<div id="mainContainer" style="display: none;">
 </div>
 </body>
 </html>

@@ -68,6 +68,12 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
             "); ";
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
+        $sqlString = "INSERT INTO ".$_POST['dbName'].".movie_type ".
+            "(name) ".
+            "VALUES ".
+            "('Movie'), ('Series'), ('Documentation'); ";
+        $dbQuery .= $sqlString;
+        $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
 
         // Table actor
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".actor ( ".
