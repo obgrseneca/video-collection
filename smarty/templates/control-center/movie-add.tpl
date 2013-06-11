@@ -2,6 +2,16 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#addMovie').click(function() {
+            var genres;
+            if ($('#genres').val() != '') {
+                if ($('#genreInput').val() != '') {
+                    genres = $('#genres').val() + ';' + $('#genreInput').val();
+                } else {
+                    genres = $('#genres').val();
+                }
+            } else {
+                genres = $('#genreInput').val();
+            }
             $.ajax({
                 type: 'post',
                 url: '{/literal}{$baseUrl}{literal}control-center/movie/add/add.php',
@@ -10,7 +20,7 @@
                     movieName: $('#movieName').val(),
                     type: $('#movieType').val(),
                     storage: $('#storage').val(),
-                    genres: $('#genres').val(),
+                    genres: genres,
                     actors: $('#actors').val(),
                     directors: $('#directors').val()
                 },
@@ -27,6 +37,46 @@
         $('#cancel').click(function() {
             vcMain.showMainView('control-center/movie/');
         });
+
+        $.ajax({
+            type: 'get',
+            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/genre.php',
+            dataType: 'text',
+            data: {},
+            success: function(data) {
+                $('#genreSelection').html(data)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/actor.php',
+            dataType: 'text',
+            data: {},
+            success: function(data) {
+                $('#actorSelection').html(data)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/director.php',
+            dataType: 'text',
+            data: {},
+            success: function(data) {
+                $('#directorSelection').html(data)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
     });
 </script>
 {/literal}
@@ -49,12 +99,10 @@
             <option value="{$sRow.id}">{$sRow.name}</option>
         {/foreach}
     </select><br />
-    <label for="genres">Genres</label>
-    <input type="text" id="genres" value="" /><br />
-    <label for="actors">Actors</label>
-    <input type="text" id="actors" value="" /><br />
-    <label for="directors">Directors</label>
-    <input type="text" id="directors" value="" /><br /><br />
+    <div id="genreSelection"></div>
+    <div id="actorSelection"></div>
+    <div id="directorSelection"></div>
+    <br />
     <button type="button" id="addMovie">Add movie</button>
     <button type="button" id="cancel">Cancel</button>
 </p>

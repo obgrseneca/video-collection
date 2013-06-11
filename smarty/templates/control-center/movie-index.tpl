@@ -9,8 +9,10 @@
                     id: id
                 },
                 success: function(data) {
-                    if (data) {
+                    if (data['answer']) {
                         vcMain.showMainView('control-center/movie/');
+                    } else {
+                        console.log(data['query']);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

@@ -28,6 +28,51 @@
         $('#cancel').click(function() {
             vcMain.showMainView('control-center/movie/');
         });
+
+        $.ajax({
+            type: 'get',
+            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/genre.php',
+            dataType: 'text',
+            data: {
+                genres: '{/literal}{$movie.genres}{literal}'
+            },
+            success: function(data) {
+                $('#genreSelection').html(data)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/actor.php',
+            dataType: 'text',
+            data: {
+                actors: '{/literal}{$movie.actors}{literal}'
+            },
+            success: function(data) {
+                $('#actorSelection').html(data)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/director.php',
+            dataType: 'text',
+            data: {
+                directors: '{/literal}{$movie.directors}{literal}'
+            },
+            success: function(data) {
+                $('#directorSelection').html(data)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
     });
 </script>
 {/literal}
@@ -51,12 +96,10 @@
             <option value="{$sRow.id}"{if $sRow.id == $movie.storage_fk} selected="selected"{/if}>{$sRow.name}</option>
         {/foreach}
     </select><br />
-    <label for="genres">Genres</label>
-    <input type="text" id="genres" value="{$movie.genres}" /><br />
-    <label for="actors">Actors</label>
-    <input type="text" id="actors" value="{$movie.actors}" /><br />
-    <label for="directors">Directors</label>
-    <input type="text" id="directors" value="{$movie.directors}" /><br /><br />
+    <div id="genreSelection"></div>
+    <div id="actorSelection"></div>
+    <div id="directorSelection"></div>
+    <br />
     <button type="button" id="editMovie">Edit movie</button>
     <button type="button" id="cancel">Cancel</button>
 </p>
