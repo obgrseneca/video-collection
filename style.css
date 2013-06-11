@@ -1,0 +1,18 @@
+body {
+    background-color: #f9f9f9;
+}
+
+.mainMenu li {
+    display: inline;
+    margin: 5px;
+    padding: 5px;
+    background-color: #999999;
+    width: 200px;
+    border-radius: 4px;
+    box-shadow: #dddddd 4px 4px 2px;
+    border: 2px outset #cccccc;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+}

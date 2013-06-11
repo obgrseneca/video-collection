@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$baseDir = $_SESSION['baseDir'];
+$baseUrl = $_SESSION['baseUrl'];
 session_destroy();
 
-echo json_encode('');
+echo json_encode($baseUrl);
 ?>

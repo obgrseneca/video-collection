@@ -21,10 +21,10 @@ VcMainClass.prototype.showMainView = function(urlPart) {
 VcMainClass.prototype.logoutNow = function(logoutUrl) {
     $.ajax({
         type: 'get',
-        url: logoutUrl,
+        url: this.baseUrl + logoutUrl,
         dataType: 'json',
         success: function(data) {
-            window.location = this.baseUrl;
+            window.location = data;
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);

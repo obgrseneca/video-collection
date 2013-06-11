@@ -6,6 +6,7 @@
     <title>Video-Collection</title>
 
     <link rel="stylesheet" type="text/css" href="{$javascriptDir}/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css" />
+    <link rel="stylesheet" type="text/css" href="{$baseUrl}style.css" />
 
     <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
@@ -21,7 +22,7 @@
             vcMain.showMainView('control-center/movie/');
 
             $('#logoutNow').click(function() {
-                vcMain.logoutNow(baseUrl + 'login/logout.php');
+                vcMain.logoutNow('login/logout.php');
             });
 
             $('#userManagement').click(function() {
@@ -52,13 +53,19 @@
 <h1>Video-Collection - Control-Center</h1>
 <div id="menuContainer">
     {if $userType == 'Administrator' OR $userType == 'Standard'}
-        <a href="#" id="movieManagement">Movie management</a><br />
-        <a href="#" id="userManagement">User management</a><br />
-        <a href="#" id="genreManagement">Genre management</a><br />
-        <a href="#" id="typeManagement">Type management</a><br />
-        <a href="#" id="storageManagement">Storage management</a><br /><br />
+        <ul class="mainMenu">
+            <li id="movieManagement">Movie management</li>
+            <li id="userManagement">User management</li>
+            <li id="genreManagement">Genre management</li>
+            <li id="typeManagement">Type management</li>
+            <li id="storageManagement">Storage management</li>
+            <li id="logoutNow">Log out</li>
+        </ul>
+    {else}
+        <ul class="mainMenu">
+            <li id="logoutNow">Log out</li>
+        </ul>
     {/if}
-    <button type="button" id="logoutNow">Log out</button>
 </div>
 <div id="mainContainer" style="display: none;">
 </div>
