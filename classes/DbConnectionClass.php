@@ -41,8 +41,11 @@
             return $dataSet;
         }
 
-        public function writeData($sql) {
+        public function writeData($sql, $returnId=false) {
             $result = mysql_query($sql);
+            if ($returnId && $result) {
+                $result = mysql_insert_id();
+            }
 
             return $result;
         }

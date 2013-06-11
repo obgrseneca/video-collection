@@ -12,7 +12,7 @@ require 'smarty/Smarty.class.php';
 require $_SESSION['baseDir'].'/classes/DbConnectionClass.php';
 
 $dbConnection = new DbConnectionClass();
-$genres = $dbConnection->readData("SELECT * FROM genre;");
+$genres = $dbConnection->readData("SELECT * FROM genre ORDER BY name; ");
 
 $smarty = new Smarty();
 $smarty->setTemplateDir($_SESSION['baseDir'].'/smarty/templates/');

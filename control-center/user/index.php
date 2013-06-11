@@ -12,7 +12,7 @@ require 'smarty/Smarty.class.php';
 require $_SESSION['baseDir'].'/classes/DbConnectionClass.php';
 
 $dbConnection = new DbConnectionClass();
-$users = $dbConnection->readData("SELECT U.*,UT.name AS type_name FROM user AS U LEFT JOIN user_type AS UT ON U.type_fk = UT.id;");
+$users = $dbConnection->readData("SELECT U.*,UT.name AS type_name FROM user AS U LEFT JOIN user_type AS UT ON U.type_fk = UT.id  ORDER BY U.type_fk, U.name; ");
 //echo "SELECT U.*,UT.name AS type_name FROM user AS U LEFT JOIN user_type AS UT ON U.type = UT.id;";
 
 $smarty = new Smarty();

@@ -35,6 +35,14 @@
             $('#movieManagement').click(function() {
                 vcMain.showMainView('control-center/movie/');
             });
+
+            $('#typeManagement').click(function() {
+                vcMain.showMainView('control-center/type/');
+            });
+
+            $('#storageManagement').click(function() {
+                vcMain.showMainView('control-center/storage/');
+            });
         });
     </script>
     {/literal}
@@ -46,7 +54,9 @@
     {if $userType == 'Administrator' OR $userType == 'Standard'}
         <a href="#" id="movieManagement">Movie management</a><br />
         <a href="#" id="userManagement">User management</a><br />
-        <a href="#" id="genreManagement">Genre management</a><br /><br />
+        <a href="#" id="genreManagement">Genre management</a><br />
+        <a href="#" id="typeManagement">Type management</a><br />
+        <a href="#" id="storageManagement">Storage management</a><br /><br />
     {/if}
     <button type="button" id="logoutNow">Log out</button>
 </div>

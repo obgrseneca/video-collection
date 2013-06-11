@@ -56,7 +56,7 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
         // Table genre
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".genre ( ".
             "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
-            "name VARCHAR(255) UNIQUE ".
+            "name VARCHAR(255) NOT NULL UNIQUE ".
             "); ";
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
@@ -64,7 +64,7 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
         // Table movie_type
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".movie_type ( ".
             "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
-            "name VARCHAR(255) UNIQUE ".
+            "name VARCHAR(255) NOT NULL UNIQUE ".
             "); ";
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
@@ -78,7 +78,7 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
         // Table actor
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".actor ( ".
             "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
-            "name VARCHAR(255) UNIQUE ".
+            "name VARCHAR(255) NOT NULL UNIQUE ".
             "); ";
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
@@ -86,7 +86,7 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
         // Table director
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".director ( ".
             "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
-            "name VARCHAR(255) UNIQUE ".
+            "name VARCHAR(255) NOT NULL UNIQUE ".
             "); ";
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
@@ -94,7 +94,7 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
         // Table storage
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".storage ( ".
             "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
-            "name VARCHAR(255) UNIQUE ".
+            "name VARCHAR(255) NOT NULL UNIQUE ".
             "); ";
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);

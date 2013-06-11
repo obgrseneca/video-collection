@@ -81,11 +81,11 @@
     <p style="color: #f00">User name or password wrong</p>
 {/if}
 <p>
-    <form method="post" action="#" id="loginForm">
-        <input type="text" id="userName" />
-        <input type="password" id="password" />
-        <button type="button" id="loginNow">Login</button>
-    </form>
+    <label for="userName">User name</label>
+    <input type="text" id="userName" /><br />
+    <label for="password">Password</label>
+    <input type="password" id="password" /><br /><br />
+    <button type="button" id="loginNow">Login</button><br /><br />
     <a href="{$baseUrl}login/lost-password/">Lost your password?</a>
 </p>
 </body>

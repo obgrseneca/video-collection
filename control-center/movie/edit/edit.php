@@ -21,15 +21,17 @@ $actors = (!empty($_POST['actors'])) ? $_POST['actors'] : '';
 $actors = explode(';', $actors);
 $directors = (!empty($_POST['directors'])) ? $_POST['directors'] : '';
 $directors = explode(';', $directors);
+$movieId = $dbConnection->escapeString((!empty($_POST['movieId'])) ? $_POST['movieId'] : -1);
 
 $dbAnswer = true;
-$sqlString = "INSERT INTO movie ".
-    "(name, type_fk, storage_fk) ".
-    "VALUES ".
-    "(".$movieName.", ".$type.", ".$storage."); ";
-$movieId = $dbConnection->writeData($sqlString, true);
-$movieId = ($movieId) ? $movieId : -1;
-$dbAnswer = (($movieId != -1) ? true : false) && $dbAnswer;
+$sqlString = "UPDATE movie SET ".
+    "name = ".$movieName.", ".
+    "type_fk = ".$type.", ".
+    "storage_fk = ".$storage." ".
+    "WHERE id = ".$movieId."; ";
+
+$dbResult = $dbConnection->writeData($sqlString);
+$dbAnswer = ($dbResult) ? true : false;
 
 $dbAnswer = $dbAnswer && saveMovieAssignments('genre', $dbConnection, $genres, $movieId, $dbAnswer);
 $dbAnswer = $dbAnswer && saveMovieAssignments('actor', $dbConnection, $actors, $movieId, $dbAnswer);

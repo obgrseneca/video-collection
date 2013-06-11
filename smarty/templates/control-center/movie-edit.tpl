@@ -1,10 +1,10 @@
 {literal}
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#addMovie').click(function() {
+        $('#editMovie').click(function() {
             $.ajax({
                 type: 'post',
-                url: '{/literal}{$baseUrl}{literal}control-center/movie/add/add.php',
+                url: '{/literal}{$baseUrl}{literal}control-center/movie/edit/edit.php',
                 dataType: 'json',
                 data: {
                     movieName: $('#movieName').val(),
@@ -12,7 +12,8 @@
                     storage: $('#storage').val(),
                     genres: $('#genres').val(),
                     actors: $('#actors').val(),
-                    directors: $('#directors').val()
+                    directors: $('#directors').val(),
+                    movieId: {/literal}{$movie.id}{literal}
                 },
                 success: function(data) {
                     if (data) {
@@ -33,28 +34,29 @@
 
 <h2>New movie</h2>
 <p>
+    <input type="hidden" id="movieId" value="{$movie.id}" />
     <label for="movieName">Movie name</label>
-    <input type="text" id="movieName" /><br />
+    <input type="text" id="movieName" value="{$movie.name}" /><br />
     <label for="movieType">Movie type</label>
     <select id="movieType">
         <option value="-1">Please choose</option>
         {foreach from=$types item="tRow"}
-            <option value="{$tRow.id}">{$tRow.name}</option>
+            <option value="{$tRow.id}"{if $tRow.id == $movie.type_fk} selected="selected"{/if}>{$tRow.name}</option>
         {/foreach}
     </select><br />
     <label for="storage">Storage media</label>
     <select id="storage">
         <option value="-1">Please choose</option>
         {foreach from=$storages item="sRow"}
-            <option value="{$sRow.id}">{$sRow.name}</option>
+            <option value="{$sRow.id}"{if $sRow.id == $movie.storage_fk} selected="selected"{/if}>{$sRow.name}</option>
         {/foreach}
     </select><br />
     <label for="genres">Genres</label>
-    <input type="text" id="genres" value="" /><br />
+    <input type="text" id="genres" value="{$movie.genres}" /><br />
     <label for="actors">Actors</label>
-    <input type="text" id="actors" value="" /><br />
+    <input type="text" id="actors" value="{$movie.actors}" /><br />
     <label for="directors">Directors</label>
-    <input type="text" id="directors" value="" /><br /><br />
-    <button type="button" id="addMovie">Add movie</button>
+    <input type="text" id="directors" value="{$movie.directors}" /><br /><br />
+    <button type="button" id="editMovie">Edit movie</button>
     <button type="button" id="cancel">Cancel</button>
 </p>

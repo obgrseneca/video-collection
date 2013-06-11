@@ -11,7 +11,11 @@ require 'smarty/Smarty.class.php';
 require $_SESSION['baseDir'].'/classes/DbConnectionClass.php';
 
 $dbConnection = new DbConnectionClass();
-$sqlString = 'SELECT M.*,S.name AS storage_name, MT.name AS type_name FROM movie AS M '.
+$sqlString = 'SELECT M.id, M.name, M.type_fk, M.storage_fk, S.name AS storage_name, MT.name AS type_name, '.
+    'GROUP_CONCAT(DISTINCT G.name ORDER BY G.name SEPARATOR \'; \') AS genres, '.
+    'GROUP_CONCAT(DISTINCT A.name ORDER BY A.name SEPARATOR \'; \') AS actors, '.
+    'GROUP_CONCAT(DISTINCT D.name ORDER BY D.name SEPARATOR \'; \') AS directors '.
+    'FROM movie AS M '.
     'LEFT JOIN storage AS S ON M.storage_fk = S.id '.
     'LEFT JOIN movie_type AS MT ON M.type_fk = MT.id '.
     'LEFT JOIN assignment_movie_genre AS AMG ON M.id = AMG.movie_fk '.
@@ -20,8 +24,8 @@ $sqlString = 'SELECT M.*,S.name AS storage_name, MT.name AS type_name FROM movie
     'LEFT JOIN actor AS A ON AMA.actor_fk = A.id '.
     'LEFT JOIN assignment_movie_director AS AMD ON M.id = AMD.movie_fk '.
     'LEFT JOIN director AS D ON AMD.director_fk = D.id '.
+    'GROUP BY M.id, M.name, M.type_fk, M.storage_fk, S.name, MT.name '.
     'ORDER BY M.name; ';
-echo $sqlString.'<br />';
 $movies = $dbConnection->readData($sqlString);
 
 $smarty = new Smarty();
