@@ -22,41 +22,50 @@
     }
 
     $(document).ready(function () {
-
+        $('#userTable').dataTable({
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers"
+        });
     });
 </script>
 {/literal}
 
 <h2>Users</h2>
+<div id="formContainer"></div>
+<div id="tableContainer">
 <p>
-    <a href="#" onclick="vcMain.showMainView('control-center/user/add/');">Add user</a>
+    <a href="#" onclick="vcMain.showUserDialog('control-center/user/add/', 0, '{$userHash}');">Add user</a>
 </p>
-<table>
+<table id="userTable" style="width: 100%;">
+    <thead>
     <tr>
         <th>User name</th>
         <th>Email</th>
         <th>Type</th>
         <th>&nbsp;</th>
-        <th>&nbsp;</th>
     </tr>
+    </thead>
+    <tbody>
     {foreach from=$users item="uRow"}
         <tr>
             <td>{$uRow.name}</td>
             <td>{$uRow.email}</td>
             <td>{$uRow.type_name}</td>
             <td>{if $userType == 'Administrator' OR $uRow.name == $userName}
-                    <a href="#" onclick="vcMain.showMainView('control-center/user/edit/?userId={$uRow.id}')">Edit</a>
-                {/if}</td>
-            <td>{if $userType == 'Administrator' AND $uRow.name != $userName}
+                    <a href="#" onclick="vcMain.showUserDialog('control-center/user/edit/?userId={$uRow.id}', {$uRow.id}, '{$userHash}')">Edit</a>
+                {/if}{if $userType == 'Administrator' AND $uRow.name != $userName}
                     <a href="#" onclick="deleteUser('{$uRow.id}', '{$uRow.name}');">Delete</a>
                 {/if}</td>
         </tr>
     {/foreach}
+    </tbody>
+    <tfoot>
     <tr>
         <th>User name</th>
         <th>Email</th>
         <th>Type</th>
         <th>&nbsp;</th>
-        <th>&nbsp;</th>
     </tr>
+    </tfoot>
 </table>
+</div>

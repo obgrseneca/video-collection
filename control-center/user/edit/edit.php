@@ -4,7 +4,7 @@ session_start();
 if (empty($_SESSION['baseUrl'])) {
     die('Fatal error!');
 }
-$allowedUserTypes = array('Administrator', 'Standard');
+$allowedUserTypes = array('_ALL_');
 $allowedUserId = !empty($_POST['id']) ? $_POST['id'] : -1;
 require($_SESSION['baseDir'].'/include/user-control.php');
 

@@ -43,8 +43,7 @@
     <tr>
         <th>Storage name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
+            <th style="width: auto !important;">&nbsp;</th>
         {/if}
     </tr>
     </thead>
@@ -55,8 +54,6 @@
             {if $userType == 'Administrator' OR $userType == 'Standard'}
                 <td>
                     <a href="#" onclick="vcMain.showStorageDialog('control-center/storage/edit/?storageId={$sRow.id}', {$sRow.id})">Edit</a>
-                </td>
-                <td>
                     <a href="#" onclick="deleteStorage('{$sRow.id}', '{$sRow.name}');">Delete</a>
                 </td>
             {/if}
@@ -67,7 +64,6 @@
     <tr>
         <th>Storage name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
         {/if}
     </tr>

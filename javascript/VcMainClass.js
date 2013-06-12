@@ -149,7 +149,7 @@ VcMainClass.prototype.showMovieDialog = function(urlPart, movieId, genres, actor
                             },
                             success: function(data) {
                                 if (data) {
-                                    vcMain.showMainView('control-center/movie/');
+                                    thisClass.showMainView('control-center/movie/');
                                     $('#formContainer').html('').dialog( 'destroy' );
                                 }
                             },
@@ -160,7 +160,7 @@ VcMainClass.prototype.showMovieDialog = function(urlPart, movieId, genres, actor
                 });
             }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center/movie/');
+                thisClass.showMainView('control-center/movie/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },
@@ -199,7 +199,7 @@ VcMainClass.prototype.showGenreDialog = function(urlPart, genreId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/genre/');
+                                thisClass.showMainView('control-center/genre/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -220,7 +220,7 @@ VcMainClass.prototype.showGenreDialog = function(urlPart, genreId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/genre/');
+                                thisClass.showMainView('control-center/genre/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -231,7 +231,7 @@ VcMainClass.prototype.showGenreDialog = function(urlPart, genreId) {
                 });
             }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center/genre/');
+                thisClass.showMainView('control-center/genre/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },
@@ -270,7 +270,7 @@ VcMainClass.prototype.showActorDialog = function(urlPart, actorId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/actor/');
+                                thisClass.showMainView('control-center/actor/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -291,7 +291,7 @@ VcMainClass.prototype.showActorDialog = function(urlPart, actorId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/actor/');
+                                thisClass.showMainView('control-center/actor/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -302,7 +302,7 @@ VcMainClass.prototype.showActorDialog = function(urlPart, actorId) {
                 });
             }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center/actor/');
+                thisClass.showMainView('control-center/actor/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },
@@ -341,7 +341,7 @@ VcMainClass.prototype.showDirectorDialog = function(urlPart, directorId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/director/');
+                                thisClass.showMainView('control-center/director/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -362,7 +362,7 @@ VcMainClass.prototype.showDirectorDialog = function(urlPart, directorId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/director/');
+                                thisClass.showMainView('control-center/director/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -373,36 +373,7 @@ VcMainClass.prototype.showDirectorDialog = function(urlPart, directorId) {
                 });
             }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center/director/');
-                $('#formContainer').html('').dialog( 'destroy' );
-            });
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
-            console.log(jqXHR);
-            console.log(errorThrown);
-        }
-    });
-};
-
-VcMainClass.prototype.showUserDialog = function(urlPart) {
-    var thisClass = this;
-    var thisDialogue, thisData;
-
-    $.ajax({
-        type: 'get',
-        url: this.baseUrl + urlPart,
-        dataType: 'text',
-        success: function(data) {
-            thisDialogue = $('#formContainer').html(data).dialog({
-                autoOpen: true,
-                height: 450,
-                width: 900,
-                modal: true
-            });
-
-            $('#cancel').click(function() {
-                vcMain.showMainView('control-center//');
+                thisClass.showMainView('control-center/director/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },
@@ -473,7 +444,7 @@ VcMainClass.prototype.showStorageDialog = function(urlPart, storageId) {
                 });
             }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center/storage/');
+                thisClass.showMainView('control-center/storage/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },
@@ -513,7 +484,7 @@ VcMainClass.prototype.showTypeDialog = function(urlPart, typeId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/type/');
+                                thisClass.showMainView('control-center/type/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -534,7 +505,7 @@ VcMainClass.prototype.showTypeDialog = function(urlPart, typeId) {
                         },
                         success: function(data) {
                             if (data) {
-                                vcMain.showMainView('control-center/type/');
+                                thisClass.showMainView('control-center/type/');
                                 $('#formContainer').html('').dialog( 'destroy' );
                             }
                         },
@@ -545,7 +516,7 @@ VcMainClass.prototype.showTypeDialog = function(urlPart, typeId) {
                 });
             }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center/type/');
+                thisClass.showMainView('control-center/type/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },
@@ -555,4 +526,102 @@ VcMainClass.prototype.showTypeDialog = function(urlPart, typeId) {
             console.log(errorThrown);
         }
     });
+};
+
+VcMainClass.prototype.showUserDialog = function(urlPart, userId, userHash) {
+    var thisClass = this;
+    var thisDialogue, thisData;
+
+    $.ajax({
+        type: 'get',
+        url: this.baseUrl + urlPart,
+        dataType: 'text',
+        success: function(data) {
+            thisDialogue = $('#formContainer').html(data).dialog({
+                autoOpen: true,
+                height: 450,
+                width: 900,
+                modal: true
+            });
+
+            if (urlPart.indexOf('add') != -1) {
+                $('#addUser').click(function() {
+                    if ($('#password').val() == $('#password2').val()) {
+                        $.ajax({
+                            type: 'post',
+                            url: thisClass.baseUrl + 'control-center/user/add/add.php',
+                            dataType: 'json',
+                            data: {
+                                userName: $('#userName').val(),
+                                email: $('#email').val(),
+                                password: thisClass.calculatePasswordHash($('#userName').val(), $('#password').val(), userHash),
+                                userHash: userHash,
+                                type: $('#userType').val()
+                            },
+                            success: function(data) {
+                                if (data) {
+                                    thisClass.showMainView('control-center/user/');
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus);
+                            }
+                        });
+                    } else {
+                        $('#passwordMatchWarning').css({display: 'block'});
+                    }
+                });
+            } else if (urlPart.indexOf('edit') != -1) {
+                $('#editUser').click(function() {
+                    if ($('#password').val() == $('#password2').val()) {
+                        var password = '';
+                        if ($('#password').val() != '') {
+                            password = thisClass.calculatePasswordHash($('#userName').val(), $('#password').val(), userHash);
+                        }
+                        $.ajax({
+                            type: 'post',
+                            url: thisClass.baseUrl + 'control-center/user/edit/edit.php',
+                            dataType: 'json',
+                            data: {
+                                userName: $('#userName').val(),
+                                email: $('#email').val(),
+                                password: password,
+                                userHash: userHash,
+                                type: $('#userType').val(),
+                                id: userId
+                            },
+                            success: function(data) {
+                                if (data) {
+                                    thisClass.showMainView('control-center/user/');
+                                    $('#formContainer').html('').dialog( 'destroy' );
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus);
+                            }
+                        });
+                    } else {
+                        $('#passwordMatchWarning').css({display: 'block'});
+                    }
+                });
+            }
+            $('#cancel').click(function() {
+                thisClass.showMainView('control-center/user/');
+                $('#formContainer').html('').dialog( 'destroy' );
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+            console.log(jqXHR);
+            console.log(errorThrown);
+        }
+    });
+};
+
+VcMainClass.prototype.calculatePasswordHash = function(userName, password, userHash) {
+    var passwordHash = password;
+    for (var i=0; i<10; i++) {
+        passwordHash = SHA1(userName+passwordHash+userHash);
+    }
+    return passwordHash;
 };

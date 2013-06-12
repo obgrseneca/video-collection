@@ -47,7 +47,7 @@
             <th>Actors</th>
             <th>Directors</th>
             {if $userType == 'Administrator' OR userType == 'Standard'}
-                <th>&nbsp;</th>
+                <th style="width: auto !important;">&nbsp;</th>
             {/if}
         </tr>
         </thead>

@@ -43,8 +43,7 @@
     <tr>
         <th>Director name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th style="width: auto;">&nbsp;</th>
-            <th style="width: auto;">&nbsp;</th>
+            <th style="width: auto !important;">&nbsp;</th>
         {/if}
     </tr>
     </thead>
@@ -55,8 +54,6 @@
             {if $userType == 'Administrator' OR $userType == 'Standard'}
                 <td>
                     <a href="#" onclick="vcMain.showDirectorDialog('control-center/director/edit/?directorId={$dRow.id}', {$dRow.id})">Edit</a>
-                </td>
-                <td>
                     <a href="#" onclick="deleteDirector('{$dRow.id}', '{$dRow.name}');">Delete</a>
                 </td>
             {/if}
@@ -67,7 +64,6 @@
     <tr>
         <th>Director name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
         {/if}
     </tr>

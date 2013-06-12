@@ -43,8 +43,7 @@
     <tr>
         <th>Genre name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th style="width: auto;">&nbsp;</th>
-            <th style="width: auto;">&nbsp;</th>
+            <th style="width: auto !important;">&nbsp;</th>
         {/if}
     </tr>
     </thead>
@@ -55,8 +54,6 @@
             {if $userType == 'Administrator' OR $userType == 'Standard'}
                 <td>
                     <a href="#" onclick="vcMain.showGenreDialog('control-center/genre/edit/?genreId={$gRow.id}', {$gRow.id})">Edit</a>
-                </td>
-                <td>
                     <a href="#" onclick="deleteGenre('{$gRow.id}', '{$gRow.name}');">Delete</a>
                 </td>
             {/if}
@@ -67,7 +64,6 @@
     <tr>
         <th>Genre name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
         {/if}
     </tr>

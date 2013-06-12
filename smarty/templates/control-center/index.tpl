@@ -61,22 +61,18 @@
 <body>
 <h1>Video-Collection - Control-Center</h1>
 <div id="menuContainer">
-    {if $userType == 'Administrator' OR $userType == 'Standard'}
-        <ul class="mainMenu">
-            <li id="movieManagement">Movie management</li>
+    <ul class="mainMenu">
+        <li id="movieManagement">Movie management</li>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
             <li id="genreManagement">Genre management</li>
             <li id="actorManagement">Actor management</li>
             <li id="directorManagement">Director management</li>
             <li id="typeManagement">Type management</li>
             <li id="storageManagement">Storage management</li>
-            <li id="userManagement">User management</li>
-            <li id="logoutNow">Log out</li>
-        </ul>
-    {else}
-        <ul class="mainMenu">
-            <li id="logoutNow">Log out</li>
-        </ul>
-    {/if}
+        {/if}
+        <li id="userManagement">User management</li>
+        <li id="logoutNow">Log out</li>
+    </ul>
 </div>
 <div id="mainContainer" style="display: none;">
 </div>

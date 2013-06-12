@@ -43,8 +43,7 @@
     <tr>
         <th>Type name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
+            <th style="width: auto !important;">&nbsp;</th>
         {/if}
     </tr>
     </thead>
@@ -55,8 +54,6 @@
             {if $userType == 'Administrator' OR $userType == 'Standard'}
                 <td>
                     <a href="#" onclick="vcMain.showTypeDialog('control-center/type/edit/?typeId={$tRow.id}', {$tRow.id})">Edit</a>
-                </td>
-                <td>
                     <a href="#" onclick="deleteType('{$tRow.id}', '{$tRow.name}');">Delete</a>
                 </td>
             {/if}
@@ -67,7 +64,6 @@
     <tr>
         <th>Type name</th>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
         {/if}
     </tr>

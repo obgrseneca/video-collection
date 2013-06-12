@@ -4,8 +4,10 @@ session_start();
 if (empty($_SESSION['baseUrl'])) {
     die('Fatal error!');
 }
-$allowedUserTypes = array('Administrator', 'Standard');
+$allowedUserTypes = array('_ALL_');
 require($_SESSION['baseDir'].'/include/user-control.php');
+
+$userHash = sha1(uniqid());
 
 //require $_SESSION['basedir'].'/classes/SmartyClass.php';
 require 'smarty/Smarty.class.php';
@@ -25,6 +27,7 @@ $smarty->assign('javascriptDir', $_SESSION['baseUrl'].'javascript/');
 $smarty->assign('baseUrl', $_SESSION['baseUrl']);
 $smarty->assign('userType', $_SESSION['userType']);
 $smarty->assign('userName', $_SESSION['userName']);
+$smarty->assign('userHash', $userHash);
 
 $smarty->assign('users', $users);
 
