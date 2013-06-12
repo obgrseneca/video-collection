@@ -314,7 +314,7 @@ VcMainClass.prototype.showActorDialog = function(urlPart, actorId) {
     });
 };
 
-VcMainClass.prototype.showDirectorDialog = function(urlPart) {
+VcMainClass.prototype.showDirectorDialog = function(urlPart, directorId) {
     var thisClass = this;
     var thisDialogue, thisData;
 
@@ -330,8 +330,50 @@ VcMainClass.prototype.showDirectorDialog = function(urlPart) {
                 modal: true
             });
 
+            if (urlPart.indexOf('add') != -1) {
+                $('#addDirector').click(function() {
+                    $.ajax({
+                        type: 'post',
+                        url: thisClass.baseUrl + 'control-center/director/add/add.php',
+                        dataType: 'json',
+                        data: {
+                            directorName: $('#directorName').val()
+                        },
+                        success: function(data) {
+                            if (data) {
+                                vcMain.showMainView('control-center/director/');
+                                $('#formContainer').html('').dialog( 'destroy' );
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    });
+                });
+            } else if (urlPart.indexOf('edit') != -1) {
+                $('#editDirector').click(function() {
+                    $.ajax({
+                        type: 'post',
+                        url: thisClass.baseUrl + 'control-center/director/edit/edit.php',
+                        dataType: 'json',
+                        data: {
+                            directorName: $('#directorName').val(),
+                            id: directorId
+                        },
+                        success: function(data) {
+                            if (data) {
+                                vcMain.showMainView('control-center/director/');
+                                $('#formContainer').html('').dialog( 'destroy' );
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    });
+                });
+            }
             $('#cancel').click(function() {
-                vcMain.showMainView('control-center//');
+                vcMain.showMainView('control-center/director/');
                 $('#formContainer').html('').dialog( 'destroy' );
             });
         },

@@ -6,6 +6,7 @@
     <title>Video-Collection</title>
 
     <link rel="stylesheet" type="text/css" href="{$javascriptDir}/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css" />
+    <link rel="stylesheet" type="text/css" href="{$baseUrl}style.css" />
 
     <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
@@ -13,10 +14,11 @@
     {literal}
     <script type="text/javascript">
         $(document).ready(function() {
+            {/literal}var baseUrl = '{$baseUrl}';{literal}
             $('#writeNow').click(function() {
                 $.ajax({
                     type: 'post',
-                    url: '{/literal}{$baseUrl}{literal}configuration/write.php',
+                    url: baseUrl + 'configuration/write.php',
                     dataType: 'json',
                     data: {
                         dbHostname: $('#dbHostname').val(),
@@ -25,7 +27,7 @@
                         dbName: $('#dbName').val()
                     },
                     success: function(data) {
-                        window.location = '{/literal}{$baseUrl}{literal}';
+                        window.location = baseUrl;
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(textStatus);
@@ -36,7 +38,7 @@
             $('#checkDbSettings').click(function() {
                 $.ajax({
                     type: 'post',
-                    url: '{/literal}{$baseUrl}{literal}configuration/checkDbSettings.php',
+                    url: baseUrl + 'configuration/checkDbSettings.php',
                     dataType: 'json',
                     data: {
                         dbHostname: $('#dbHostname').val(),
@@ -70,7 +72,7 @@
             $('#createDb').click(function() {
                 $.ajax({
                     type: 'post',
-                    url: '{/literal}{$baseUrl}{literal}configuration/createDb.php',
+                    url: baseUrl + 'configuration/createDb.php',
                     dataType: 'json',
                     data: {
                         dbHostname: $('#dbHostname').val(),
@@ -105,7 +107,7 @@
             $('#checkDb').click(function() {
                 $.ajax({
                     type: 'post',
-                    url: '{/literal}{$baseUrl}{literal}configuration/checkDbIntegrity.php',
+                    url: baseUrl + 'configuration/checkDbIntegrity.php',
                     dataType: 'json',
                     data: {
                         dbHostname: $('#dbHostname').val(),
@@ -144,6 +146,7 @@
 
 <body>
 <h1>Video-Collection - Configuration</h1>
+<div id="mainContainer" style="display: block; text-align: center;">
 <p>
     <label for="dbHostname">DB Hostname</label>
     <input type="text" id="dbHostname" value="localhost" /><span id="dbHostnameFixed" style="display: none;"></span><br />
@@ -159,5 +162,6 @@
     <button type="button" id="writeNow" disabled="disabled">Save</button>
 </p>
 <p id="dbWarnings" style="display: none;"></p>
+</div>
 </body>
 </html>

@@ -23,16 +23,18 @@ function saveMovieAssignments($type, $dbConnection, $assignments, $movieId, $dbA
     }
     if (count($newAssignments) > 0) {
         foreach ($newAssignments as $aRow) {
-            $sqlString = 'INSERT INTO '.$type.' ' .
-                '(name)' .
-                'VALUES' .
-                '(' . $dbConnection->escapeString(trim($aRow), 'str') . '); ';
-            $assignmentId = $dbConnection->writeData($sqlString, true);
-            $assignmentId = ($assignmentId) ? $assignmentId : -1;
-            $dbAnswer = (($assignmentId != -1) ? true : false) && $dbAnswer;
+            if (trim($aRow) != '') {
+                $sqlString = 'INSERT INTO '.$type.' ' .
+                    '(name)' .
+                    'VALUES' .
+                    '(' . $dbConnection->escapeString(trim($aRow), 'str') . '); ';
+                $assignmentId = $dbConnection->writeData($sqlString, true);
+                $assignmentId = ($assignmentId) ? $assignmentId : -1;
+                $dbAnswer = (($assignmentId != -1) ? true : false) && $dbAnswer;
 
-            if ($assignmentId != -1) {
-                array_push($addAssignments, $assignmentId);
+                if ($assignmentId != -1) {
+                    array_push($addAssignments, $assignmentId);
+                }
             }
         }
     }

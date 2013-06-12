@@ -38,6 +38,10 @@
                 vcMain.showMainView('control-center/actor/');
             });
 
+            $('#directorManagement').click(function() {
+                vcMain.showMainView('control-center/director/');
+            });
+
             $('#movieManagement').click(function() {
                 vcMain.showMainView('control-center/movie/');
             });
@@ -62,6 +66,7 @@
             <li id="movieManagement">Movie management</li>
             <li id="genreManagement">Genre management</li>
             <li id="actorManagement">Actor management</li>
+            <li id="directorManagement">Director management</li>
             <li id="typeManagement">Type management</li>
             <li id="storageManagement">Storage management</li>
             <li id="userManagement">User management</li>

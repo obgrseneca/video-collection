@@ -48,7 +48,6 @@
             <th>Directors</th>
             {if $userType == 'Administrator' OR userType == 'Standard'}
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
             {/if}
         </tr>
         </thead>
@@ -63,9 +62,10 @@
                     <td>{$mRow.actors}</td>
                     <td>{$mRow.directors}</td>
                     {if $userType == 'Administrator' OR userType == 'Standard'}
-                        <td><a href="#" onclick="vcMain.showMovieDialog('control-center/movie/edit/?movieId={$mRow.id}', {$mRow.id}, '{$mRow.genres}', '{$mRow.actors}', '{$mRow.directors}');">Edit</a>
+                        <td>
+                            <a href="#" onclick="vcMain.showMovieDialog('control-center/movie/edit/?movieId={$mRow.id}', {$mRow.id}, '{$mRow.genres}', '{$mRow.actors}', '{$mRow.directors}');">Edit</a>
+                            <a href="#" onclick="deleteMovie({$mRow.id});">Delete</a>
                         </td>
-                        <td><a href="#" onclick="deleteMovie({$mRow.id});">Delete</a></td>
                     {/if}
                 </tr>
             {/if}
@@ -80,7 +80,6 @@
             <th>Actors</th>
             <th>Directors</th>
             {if $userType == 'Administrator' OR userType == 'Standard'}
-                <th>&nbsp;</th>
                 <th>&nbsp;</th>
             {/if}
         </tr>

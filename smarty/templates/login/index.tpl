@@ -6,6 +6,7 @@
     <title>Video-Collection</title>
 
     <link rel="stylesheet" type="text/css" href="{$javascriptDir}/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css" />
+    <link rel="stylesheet" type="text/css" href="{$baseUrl}style.css" />
 
     <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
@@ -77,6 +78,7 @@
 
 <body>
 <h1>Video-Collection - Login</h1>
+<div id="mainContainer" style="display: block; text-align: center;">
 {if $error == "login"}
     <p style="color: #f00">User name or password wrong</p>
 {/if}
@@ -88,5 +90,6 @@
     <button type="button" id="loginNow">Login</button><br /><br />
     <a href="{$baseUrl}login/lost-password/">Lost your password?</a>
 </p>
+</div>
 </body>
 </html>
