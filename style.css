@@ -1,5 +1,5 @@
 body {
-    background-color: #f9f9f9;
+    background-color: #f1f1f1;
 }
 
 .mainMenu li {
@@ -15,4 +15,21 @@ body {
     color: #ffffff;
     font-weight: bold;
     font-size: 18px;
+}
+
+div#menuContainer,div#mainContainer {
+    background-color: #f9f9f9;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 10px;
+}
+
+h1,h2 {
+    text-align: center;
+}
+
+div#tableContainer {
+    width: 1200px;
+    margin: auto;
 }

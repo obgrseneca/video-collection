@@ -22,37 +22,55 @@
     }
 
     $(document).ready(function () {
-
+        $('#genreTable').dataTable({
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers"
+        });
     });
 </script>
 {/literal}
 
 <h2>Genres</h2>
+<div id="formContainer"></div>
+<div id="tableContainer">
 <p>
     {if $userType == 'Administrator' OR $userType == 'Standard'}
-        <a href="#" onclick="vcMain.showMainView('control-center/genre/add/');">Add genre</a>
+        <a href="#" onclick="vcMain.showGenreDialog('control-center/genre/add/');">Add genre</a>
     {/if}
 </p>
-<table>
+<table id="genreTable" style="width: 100%;">
+    <thead>
     <tr>
         <th>Genre name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
+            <th style="width: auto;">&nbsp;</th>
+            <th style="width: auto;">&nbsp;</th>
+        {/if}
     </tr>
+    </thead>
+    <tbody>
     {foreach from=$genres item="gRow"}
         <tr>
             <td>{$gRow.name}</td>
-            <td>{if $userType == 'Administrator' OR $userType == 'Standard'}
-                    <a href="#" onclick="vcMain.showMainView('control-center/genre/edit/?genreId={$gRow.id}')">Edit</a>
-                {/if}</td>
-            <td>{if $userType == 'Administrator'  OR $userType == 'Standard'}
+            {if $userType == 'Administrator' OR $userType == 'Standard'}
+                <td>
+                    <a href="#" onclick="vcMain.showGenreDialog('control-center/genre/edit/?genreId={$gRow.id}', {$gRow.id})">Edit</a>
+                </td>
+                <td>
                     <a href="#" onclick="deleteGenre('{$gRow.id}', '{$gRow.name}');">Delete</a>
-                {/if}</td>
+                </td>
+            {/if}
         </tr>
     {/foreach}
+    </tbody>
+    <tfoot>
     <tr>
         <th>Genre name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        {/if}
     </tr>
+    </tfoot>
 </table>
+</div>

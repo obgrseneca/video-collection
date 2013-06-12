@@ -22,37 +22,55 @@
     }
 
     $(document).ready(function () {
-
+        $('#storageTable').dataTable({
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers"
+        });
     });
 </script>
 {/literal}
 
 <h2>Storages</h2>
+<div id="formContainer"></div>
+<div id="tableContainer">
 <p>
     {if $userType == 'Administrator' OR $userType == 'Standard'}
-        <a href="#" onclick="vcMain.showMainView('control-center/storage/add/');">Add storage</a>
+        <a href="#" onclick="vcMain.showStorageDialog('control-center/storage/add/');">Add storage</a>
     {/if}
 </p>
-<table>
+<table id="storageTable" style="width: 100%;">
+    <thead>
     <tr>
         <th>Storage name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        {/if}
     </tr>
+    </thead>
+    <tbody>
     {foreach from=$storages item="sRow"}
         <tr>
             <td>{$sRow.name}</td>
-            <td>{if $userType == 'Administrator' OR $userType == 'Standard'}
-                    <a href="#" onclick="vcMain.showMainView('control-center/storage/edit/?storageId={$sRow.id}')">Edit</a>
-                {/if}</td>
-            <td>{if $userType == 'Administrator'  OR $userType == 'Standard'}
+            {if $userType == 'Administrator' OR $userType == 'Standard'}
+                <td>
+                    <a href="#" onclick="vcMain.showStorageDialog('control-center/storage/edit/?storageId={$sRow.id}', {$sRow.id})">Edit</a>
+                </td>
+                <td>
                     <a href="#" onclick="deleteStorage('{$sRow.id}', '{$sRow.name}');">Delete</a>
-                {/if}</td>
+                </td>
+            {/if}
         </tr>
     {/foreach}
+    </tbody>
+    <tfoot>
     <tr>
         <th>Storage name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        {/if}
     </tr>
+    </tfoot>
 </table>
+</div>

@@ -23,7 +23,7 @@
             var selectedActors = $('#actors').val();
             if (selectedActors.indexOf(actor) == -1) {
                 if (selectedActors != '') {
-                    $('#actors').val(selectedActor + ';' + actor);
+                    $('#actors').val(selectedActors + ';' + actor);
                 } else {
                     $('#actors').val(actor);
                 }

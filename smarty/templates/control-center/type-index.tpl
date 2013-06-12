@@ -22,37 +22,55 @@
     }
 
     $(document).ready(function () {
-
+        $('#typeTable').dataTable({
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers"
+        });
     });
 </script>
 {/literal}
 
 <h2>Types</h2>
+<div id="formContainer"></div>
+<div id="tableContainer">
 <p>
     {if $userType == 'Administrator' OR $userType == 'Standard'}
-        <a href="#" onclick="vcMain.showMainView('control-center/type/add/');">Add type</a>
+        <a href="#" onclick="vcMain.showTypeDialog('control-center/type/add/');">Add type</a>
     {/if}
 </p>
-<table>
+<table id="typeTable" style="width: 100%;">
+    <thead>
     <tr>
         <th>Type name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        {/if}
     </tr>
+    </thead>
+    <tbody>
     {foreach from=$types item="tRow"}
         <tr>
             <td>{$tRow.name}</td>
-            <td>{if $userType == 'Administrator' OR $userType == 'Standard'}
-                    <a href="#" onclick="vcMain.showMainView('control-center/type/edit/?typeId={$tRow.id}')">Edit</a>
-                {/if}</td>
-            <td>{if $userType == 'Administrator'  OR $userType == 'Standard'}
+            {if $userType == 'Administrator' OR $userType == 'Standard'}
+                <td>
+                    <a href="#" onclick="vcMain.showTypeDialog('control-center/type/edit/?typeId={$tRow.id}', {$tRow.id})">Edit</a>
+                </td>
+                <td>
                     <a href="#" onclick="deleteType('{$tRow.id}', '{$tRow.name}');">Delete</a>
-                {/if}</td>
+                </td>
+            {/if}
         </tr>
     {/foreach}
+    </tbody>
+    <tfoot>
     <tr>
         <th>Type name</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        {if $userType == 'Administrator' OR $userType == 'Standard'}
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        {/if}
     </tr>
+    </tfoot>
 </table>
+</div>

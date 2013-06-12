@@ -10,6 +10,7 @@
 
     <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
+    <script type="text/javascript" src="{$javascriptDir}/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/sha1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/VcMainClass.js"></script>
     {literal}
@@ -31,6 +32,10 @@
 
             $('#genreManagement').click(function() {
                 vcMain.showMainView('control-center/genre/');
+            });
+
+            $('#actorManagement').click(function() {
+                vcMain.showMainView('control-center/actor/');
             });
 
             $('#movieManagement').click(function() {
@@ -55,10 +60,11 @@
     {if $userType == 'Administrator' OR $userType == 'Standard'}
         <ul class="mainMenu">
             <li id="movieManagement">Movie management</li>
-            <li id="userManagement">User management</li>
             <li id="genreManagement">Genre management</li>
+            <li id="actorManagement">Actor management</li>
             <li id="typeManagement">Type management</li>
             <li id="storageManagement">Storage management</li>
+            <li id="userManagement">User management</li>
             <li id="logoutNow">Log out</li>
         </ul>
     {else}
