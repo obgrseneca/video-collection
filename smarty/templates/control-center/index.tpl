@@ -13,12 +13,15 @@
     <script type="text/javascript" src="{$javascriptDir}/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/sha1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/VcMainClass.js"></script>
+    <script type="text/javascript" src="{$javascriptDir}/TmdbClass.js"></script>
     {literal}
     <script type="text/javascript">
         var vcMain;
+        var tmdb;
         {/literal}var baseUrl = '{$baseUrl}';{literal}
         $(document).ready(function() {
             vcMain = new VcMainClass(baseUrl);
+            {/literal}tmdb = new TmdbClass('{$configData.tmdbApiKey}');{literal}
 
             vcMain.showMainView('control-center/movie/');
 
@@ -53,6 +56,10 @@
             $('#storageManagement').click(function() {
                 vcMain.showMainView('control-center/storage/');
             });
+
+            $('#languageManagement').click(function() {
+                vcMain.showMainView('control-center/language/');
+            });
         });
     </script>
     {/literal}
@@ -62,15 +69,16 @@
 <h1>Video-Collection - Control-Center</h1>
 <div id="menuContainer">
     <ul class="mainMenu">
-        <li id="movieManagement">Movie management</li>
+        <li id="movieManagement">Movies</li>
         {if $userType == 'Administrator' OR $userType == 'Standard'}
-            <li id="genreManagement">Genre management</li>
-            <li id="actorManagement">Actor management</li>
-            <li id="directorManagement">Director management</li>
-            <li id="typeManagement">Type management</li>
-            <li id="storageManagement">Storage management</li>
+            <li id="genreManagement">Genres</li>
+            <li id="actorManagement">Actors</li>
+            <li id="directorManagement">Directors</li>
+            <li id="typeManagement">Types</li>
+            <li id="storageManagement">Storages</li>
+            <li id="languageManagement">Languages</li>
         {/if}
-        <li id="userManagement">User management</li>
+        <li id="userManagement">Users</li>
         <li id="logoutNow">Log out</li>
     </ul>
 </div>

@@ -34,13 +34,13 @@ VcMainClass.prototype.logoutNow = function(logoutUrl) {
 
 VcMainClass.prototype.showMovieDialog = function(urlPart, movieId, genres, actors, directors) {
     var thisClass = this;
-    var thisDialogue, thisData;
+    var thisData;
     $.ajax({
         type: 'get',
         url: this.baseUrl + urlPart,
         dataType: 'text',
         success: function(data) {
-            thisDialogue = $('#formContainer').html(data).dialog({
+            $('#formContainer').html(data).dialog({
                 autoOpen: true,
                 height: 450,
                 width: 900,
@@ -115,6 +115,8 @@ VcMainClass.prototype.showMovieDialog = function(urlPart, movieId, genres, actor
                         dataType: 'json',
                         data: {
                             movieName: $('#movieName').val(),
+                            date: $('#date').val(),
+                            language: $('#language').val(),
                             type: $('#movieType').val(),
                             storage: $('#storage').val(),
                             genres: genres,
@@ -140,6 +142,8 @@ VcMainClass.prototype.showMovieDialog = function(urlPart, movieId, genres, actor
                             dataType: 'json',
                             data: {
                                 movieName: $('#movieName').val(),
+                                date: $('#date').val(),
+                                language: $('#language').val(),
                                 type: $('#movieType').val(),
                                 storage: $('#storage').val(),
                                 genres: $('#genres').val(),
@@ -455,6 +459,82 @@ VcMainClass.prototype.showStorageDialog = function(urlPart, storageId) {
         }
     });
 };
+
+// ********************
+
+VcMainClass.prototype.showLanguageDialog = function(urlPart, languageId) {
+    var thisClass = this;
+    var thisDialogue, thisData;
+
+    $.ajax({
+        type: 'get',
+        url: this.baseUrl + urlPart,
+        dataType: 'text',
+        success: function(data) {
+            thisDialogue = $('#formContainer').html(data).dialog({
+                autoOpen: true,
+                height: 450,
+                width: 900,
+                modal: true
+            });
+
+            if (urlPart.indexOf('add') != -1) {
+                $('#addLanguage').click(function() {
+                    $.ajax({
+                        type: 'post',
+                        url: thisClass.baseUrl + 'control-center/language/add/add.php',
+                        dataType: 'json',
+                        data: {
+                            languageName: $('#languageName').val(),
+                            acronym: $('#acronym').val()
+                        },
+                        success: function(data) {
+                            if (data) {
+                                thisClass.showMainView('control-center/language/');
+                                $('#formContainer').html('').dialog( 'destroy' );
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    });
+                });
+            } else if (urlPart.indexOf('edit') != -1) {
+                $('#editLanguage').click(function() {
+                    $.ajax({
+                        type: 'post',
+                        url: thisClass.baseUrl + 'control-center/language/edit/edit.php',
+                        dataType: 'json',
+                        data: {
+                            languageName: $('#languageName').val(),
+                            acronym: $('#acronym').val(),
+                            id: languageId
+                        },
+                        success: function(data) {
+                            if (data) {
+                                thisClass.showMainView('control-center/language/');
+                                $('#formContainer').html('').dialog( 'destroy' );
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    });
+                });
+            }
+            $('#cancel').click(function() {
+                thisClass.showMainView('control-center/language/');
+                $('#formContainer').html('').dialog( 'destroy' );
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+            console.log(jqXHR);
+            console.log(errorThrown);
+        }
+    });
+};
+// ********************
 
 
 VcMainClass.prototype.showTypeDialog = function(urlPart, typeId) {

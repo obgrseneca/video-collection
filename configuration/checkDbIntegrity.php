@@ -36,6 +36,11 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
     $tableMovieLayout = array(
         array('Field' => 'id', 'Type' => 'int(11)', 'Null' => 'NO', 'Key' => 'PRI', 'Default' => NULL, 'Extra' => 'auto_increment'),
         array('Field' => 'name', 'Type' => 'varchar(255)', 'Null' => 'NO', 'Key' => '', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'year', 'Type' => 'int(11)', 'Null' => 'YES', 'Key' => '', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'date', 'Type' => 'date', 'Null' => 'YES', 'Key' => '', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'story', 'Type' => 'text', 'Null' => 'YES', 'Key' => '', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'tmdb_id', 'Type' => 'int(11)', 'Null' => 'YES', 'Key' => '', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'language_fk', 'Type' => 'int(11)', 'Null' => 'YES', 'Key' => 'MUL', 'Default' => NULL, 'Extra' => ''),
         array('Field' => 'type_fk', 'Type' => 'int(11)', 'Null' => 'YES', 'Key' => 'MUL', 'Default' => NULL, 'Extra' => ''),
         array('Field' => 'storage_fk', 'Type' => 'int(11)', 'Null' => 'YES', 'Key' => 'MUL', 'Default' => NULL, 'Extra' => ''),
     );
@@ -47,11 +52,24 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
     );
     $errors = checkTableIntegrity($dbConnection, 'movie_type', $tableMovieTypeLayout, $errors);
 
+    $tableConfigLayout = array(
+        array('Field' => 'config_key', 'Type' => 'varchar(255)', 'Null' => 'NO', 'Key' => 'PRI', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'config_value', 'Type' => 'varchar(255)', 'Null' => 'YES', 'Key' => '', 'Default' => NULL, 'Extra' => '')
+    );
+    $errors = checkTableIntegrity($dbConnection, 'config', $tableConfigLayout, $errors);
+
     $tableGenreLayout = array(
         array('Field' => 'id', 'Type' => 'int(11)', 'Null' => 'NO', 'Key' => 'PRI', 'Default' => NULL, 'Extra' => 'auto_increment'),
         array('Field' => 'name', 'Type' => 'varchar(255)', 'Null' => 'NO', 'Key' => 'UNI', 'Default' => NULL, 'Extra' => '')
     );
     $errors = checkTableIntegrity($dbConnection, 'genre', $tableGenreLayout, $errors);
+
+    $tableLanguageLayout = array(
+        array('Field' => 'id', 'Type' => 'int(11)', 'Null' => 'NO', 'Key' => 'PRI', 'Default' => NULL, 'Extra' => 'auto_increment'),
+        array('Field' => 'name', 'Type' => 'varchar(255)', 'Null' => 'NO', 'Key' => 'UNI', 'Default' => NULL, 'Extra' => ''),
+        array('Field' => 'acronym', 'Type' => 'varchar(255)', 'Null' => 'NO', 'Key' => 'UNI', 'Default' => NULL, 'Extra' => '')
+    );
+    $errors = checkTableIntegrity($dbConnection, 'language', $tableLanguageLayout, $errors);
 
     $tableActorLayout = array(
         array('Field' => 'id', 'Type' => 'int(11)', 'Null' => 'NO', 'Key' => 'PRI', 'Default' => NULL, 'Extra' => 'auto_increment'),
@@ -97,7 +115,7 @@ function checkTableExistence($dbConnection, $dbName, $errors) {
     $dbResult = $dbConnection->readData($sqlString);
 
     $requiredTables = array('user', 'movie', 'genre', 'actor', 'director', 'movie_type', 'user_type', 'storage',
-        'assignment_movie_actor', 'assignment_movie_director', 'assignment_movie_genre');
+        'config', 'language', 'assignment_movie_actor', 'assignment_movie_director', 'assignment_movie_genre');
     $existingTables = array();
     $extraTables = array();
     $missingTables = array();

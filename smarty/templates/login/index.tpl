@@ -11,8 +11,10 @@
     <script type="text/javascript" src="{$javascriptDir}/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
     <script type="text/javascript" src="{$javascriptDir}/sha1.js"></script>
+    <script type="text/javascript" src="{$javascriptDir}/VcMainClass.js"></script>
     {literal}
     <script type="text/javascript">
+        var vcMain = new VcMainClass('{/literal}{$baseUrl}{literal}')
         function getLoginHash(userName, password) {
             $.ajax({
                 type: 'get',
@@ -82,14 +84,22 @@
 {if $error == "login"}
     <p style="color: #f00">User name or password wrong</p>
 {/if}
-<p>
-    <label for="userName">User name</label>
-    <input type="text" id="userName" /><br />
-    <label for="password">Password</label>
-    <input type="password" id="password" /><br /><br />
-    <button type="button" id="loginNow">Login</button><br /><br />
-    <a href="{$baseUrl}login/lost-password/">Lost your password?</a>
-</p>
+<table style="margin: auto;">
+    <tr>
+        <th>User name</th>
+        <td>
+            <input type="text" id="userName" />
+        </td>
+    </tr>
+    <tr>
+        <th>Password</th>
+        <td>
+            <input type="password" id="password" />
+        </td>
+    </tr>
+</table><br />
+<button type="button" id="loginNow">Login</button><br /><br />
+<a href="#" onclick="vcMain.showMainView('login/lost-password/')">Lost your password?</a>
 </div>
 </body>
 </html>

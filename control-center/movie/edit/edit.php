@@ -14,6 +14,8 @@ $dbConnection = new DbConnectionClass();
 
 $movieName = $dbConnection->escapeString((!empty($_POST['movieName'])) ? $_POST['movieName'] : '', 'str');
 $type = $dbConnection->escapeString((!empty($_POST['type'])) ? $_POST['type'] : -1);
+$language = $dbConnection->escapeString((!empty($_POST['language'])) ? $_POST['language'] : -1);
+$date = $dbConnection->escapeString((!empty($_POST['date'])) ? $_POST['date'] : -1, 'str');
 $storage = $dbConnection->escapeString((!empty($_POST['storage'])) ? $_POST['storage'] : -1);
 $genres = (!empty($_POST['genres'])) ? $_POST['genres'] : '';
 $genres = explode(';', $genres);
@@ -26,6 +28,8 @@ $movieId = $dbConnection->escapeString((!empty($_POST['movieId'])) ? $_POST['mov
 $dbAnswer = true;
 $sqlString = "UPDATE movie SET ".
     "name = ".$movieName.", ".
+    "date = ".$date.", ".
+    "language_fk = ".$language.", ".
     "type_fk = ".$type.", ".
     "storage_fk = ".$storage." ".
     "WHERE id = ".$movieId."; ";

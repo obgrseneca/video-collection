@@ -41,6 +41,8 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>Language</th>
+            <th>Date</th>
             <th>Type</th>
             <th>Storage</th>
             <th>Genres</th>
@@ -56,6 +58,8 @@
             {if $mRow.id != ''}
                 <tr>
                     <td>{$mRow.name}</td>
+                    <td>{$mRow.language_name}</td>
+                    <td>{$mRow.date}</td>
                     <td>{$mRow.type_name}</td>
                     <td>{$mRow.storage_name}</td>
                     <td>{$mRow.genres}</td>
@@ -74,6 +78,8 @@
         <tfoot>
         <tr>
             <th>Name</th>
+            <th>Language</th>
+            <th>Date</th>
             <th>Type</th>
             <th>Storage</th>
             <th>Genres</th>

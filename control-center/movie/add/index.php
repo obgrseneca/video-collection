@@ -16,6 +16,7 @@ $actors = $dbConnection->readData('SELECT * FROM actor ORDER BY name; ');
 $directors = $dbConnection->readData('SELECT * FROM director ORDER BY name; ');
 $types = $dbConnection->readData('SELECT * FROM movie_type ORDER BY name; ');
 $storages = $dbConnection->readData('SELECT * FROM storage ORDER BY name; ');
+$languages = $dbConnection->readData('SELECT * FROM language ORDER BY name; ');
 
 $smarty = new Smarty();
 $smarty->setTemplateDir($_SESSION['baseDir'].'/smarty/templates/');
@@ -33,6 +34,7 @@ $smarty->assign('actors', $actors);
 $smarty->assign('directors', $directors);
 $smarty->assign('types', $types);
 $smarty->assign('storages', $storages);
+$smarty->assign('languages', $languages);
 
 $smarty->display('control-center/movie-add.tpl');
 

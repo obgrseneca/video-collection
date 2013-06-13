@@ -3,7 +3,7 @@
     var actors = [];
     {/literal}
     {foreach from=$actors item=aRow}
-    actors.push('{$aRow.name}');
+    actors.push("{$aRow.name}");
     {/foreach}
     {literal}
 
@@ -30,23 +30,23 @@
                 htmlString = '<span style="margin: 2px; background-color: #f1f1f1; border: 1px solid #cccccc; ' +
                         'border-radius: 2px; cursor: pointer;" onclick="removeActor(\'' + actor + '\');">' + actor + '</span>';
                 $('#selectedActorDiv').append(htmlString);
-                console.log(actor + ' added!');
             }
         }
         $('#actorInput').val('');
     }
 
     function removeActor(actor) {
-        console.log(actor + ' removed!');
         var selectedActors = $('#actors').val();
         if (selectedActors.indexOf(';') != -1) {
             selectedActors = selectedActors.split(';');
+        } else {
+            selectedActors = [selectedActors];
         }
         var newSelectedActors = [];
         htmlString = '';
         for (var aRow in selectedActors) {
             if (selectedActors[aRow] != actor) {
-                newSelectedActors.push(selectedActors[gRow]);
+                newSelectedActors.push(selectedActors[aRow]);
                 htmlString += '<span style="margin: 2px; background-color: #f1f1f1; border: 1px solid #cccccc; ' +
                         'border-radius: 2px; cursor: pointer;" ' +
                         'onclick="removeActor(\'' + selectedActors[aRow] + '\');">' +
@@ -61,7 +61,6 @@
 
 </script>
 {/literal}
-<label for="actors">Actors</label>
 <span id="selectedActorDiv">
     {if $selectedActors != ''}
         {foreach from=$selectedActorArray item=sRow}

@@ -3,7 +3,7 @@
     var directors = [];
     {/literal}
     {foreach from=$directors item=dRow}
-    directors.push('{$dRow.name}');
+    directors.push("{$dRow.name}");
     {/foreach}
     {literal}
 
@@ -30,17 +30,17 @@
                 htmlString = '<span style="margin: 2px; background-color: #f1f1f1; border: 1px solid #cccccc; ' +
                         'border-radius: 2px; cursor: pointer;" onclick="removeDirector(\'' + director + '\');">' + director + '</span>';
                 $('#selectedDirectorDiv').append(htmlString);
-                console.log(director + ' added!');
             }
         }
         $('#directorInput').val('');
     }
 
     function removeDirector(director) {
-        console.log(director + ' removed!');
         var selectedDirectors = $('#directors').val();
         if (selectedDirectors.indexOf(';') != -1) {
             selectedDirectors = selectedDirectors.split(';');
+        } else {
+            selectedDirectors = [selectedDirectors];
         }
         var newSelectedDirectors = [];
         htmlString = '';
@@ -61,7 +61,6 @@
 
 </script>
 {/literal}
-<label for="directors">Directors</label>
 <span id="selectedDirectorDiv">
     {if $selectedDirectors != ''}
         {foreach from=$selectedDirectorArray item=sRow}

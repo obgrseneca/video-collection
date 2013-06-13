@@ -52,11 +52,11 @@
                             $('#checkDb').removeAttr('disabled');
                             $('#dbName').css('display','inline');
                             $('#dbHostname').css('display','none');
-                            $('#dbHostnameFixed').html(':&nbsp;' + $('#dbHostname').val()).css('display','inline');
+                            $('#dbHostnameFixed').html($('#dbHostname').val()).css('display','inline');
                             $('#dbUser').css('display','none');
-                            $('#dbUserFixed').html(':&nbsp;' + $('#dbUser').val()).css('display','inline');
+                            $('#dbUserFixed').html($('#dbUser').val()).css('display','inline');
                             $('#dbPassword').css('display','none');
-                            $('#dbPasswordFixed').html(':&nbsp;' + $('#dbPassword').val()).css('display','inline');
+                            $('#dbPasswordFixed').html($('#dbPassword').val()).css('display','inline');
                             $('#checkDbSettings').attr('disabled','disabled');
                         }
                         console.log(data);
@@ -85,7 +85,7 @@
                             $('#createDb').attr('disabled','disabled');
                             $('#checkDb').attr('disabled','disabled');
                             $('#dbName').css('display','none');
-                            $('#dbNameFixed').html(':&nbsp;' + $('#dbName').val()).css('display','inline');
+                            $('#dbNameFixed').html($('#dbName').val()).css('display','inline');
                             $('#writeNow').removeAttr('disabled');
                         } else if (data[0] == 2) {
                             alert('Database already exists. Please check!');
@@ -120,7 +120,7 @@
                             $('#createDb').attr('disabled','disabled');
                             $('#checkDb').attr('disabled','disabled');
                             $('#dbName').css('display','none');
-                            $('#dbNameFixed').html(':&nbsp;' + $('#dbName').val()).css('display','inline');
+                            $('#dbNameFixed').html($('#dbName').val()).css('display','inline');
                             $('#writeNow').removeAttr('disabled');
                             if (data['warning'] > 0) {
                                 $('#dbWarnings').html(data['warning']).css({display: 'block'});
@@ -147,20 +147,36 @@
 <body>
 <h1>Video-Collection - Configuration</h1>
 <div id="mainContainer" style="display: block; text-align: center;">
-<p>
-    <label for="dbHostname">DB Hostname</label>
-    <input type="text" id="dbHostname" value="localhost" /><span id="dbHostnameFixed" style="display: none;"></span><br />
-    <label for="dbUser">DB User</label>
-    <input type="text" id="dbUser" value="root" /><span id="dbUserFixed" style="display: none;"></span><br />
-    <label for="dbPassword">DB Password</label>
-    <input type="text" id="dbPassword" /><span id="dbPasswordFixed" style="display: none;"></span><br />
-    <label for="dbName">DB Name</label>
-    <input type="text" id="dbName" style="display: none;" /><span id="dbNameFixed" style="display: none;"></span><br /><br />
+<table style="margin: auto;">
+    <tr>
+        <th>DB Hostname</th>
+        <td>
+            <input type="text" id="dbHostname" value="localhost" /><span id="dbHostnameFixed" style="display: none;"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>DB User</th>
+        <td>
+            <input type="text" id="dbUser" value="root" /><span id="dbUserFixed" style="display: none;"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>DB Password</th>
+        <td>
+            <input type="text" id="dbPassword" /><span id="dbPasswordFixed" style="display: none;"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>DB Name</th>
+        <td>
+            <input type="text" id="dbName" style="display: none;" /><span id="dbNameFixed" style="display: none;"></span>
+        </td>
+    </tr>
+</table><br />
     <button type="button" id="checkDbSettings">Check db settings</button>
     <button type="button" id="createDb" disabled="disabled">Create db</button>
     <button type="button" id="checkDb" disabled="disabled">Check db</button><br /><br />
     <button type="button" id="writeNow" disabled="disabled">Save</button>
-</p>
 <p id="dbWarnings" style="display: none;"></p>
 </div>
 </body>

@@ -3,7 +3,7 @@
     var genres = [];
     {/literal}
     {foreach from=$genres item=gRow}
-        genres.push('{$gRow.name}');
+        genres.push("{$gRow.name}");
     {/foreach}
     {literal}
 
@@ -30,17 +30,17 @@
                 htmlString = '<span style="margin: 2px; background-color: #f1f1f1; border: 1px solid #cccccc; ' +
                         'border-radius: 2px; cursor: pointer;" onclick="removeGenre(\'' + genre + '\');">' + genre + '</span>';
                 $('#selectedGenreDiv').append(htmlString);
-                console.log(genre + ' added!');
             }
         }
         $('#genreInput').val('');
     }
 
     function removeGenre(genre) {
-        console.log(genre + ' removed!');
         var selectedGenres = $('#genres').val();
         if (selectedGenres.indexOf(';') != -1) {
             selectedGenres = selectedGenres.split(';');
+        } else {
+            selectedGenres = [selectedGenres];
         }
         var newSelectedGenres = [];
         htmlString = '';
@@ -61,7 +61,6 @@
 
 </script>
 {/literal}
-<label for="genres">Genres</label>
 <span id="selectedGenreDiv">
     {if $selectedGenres != ''}
         {foreach from=$selectedGenreArray item=sRow}

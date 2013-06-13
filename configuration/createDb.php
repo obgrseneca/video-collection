@@ -99,12 +99,41 @@ if (!file_exists($_SESSION['baseDir'].'/config.inc')) {
         $dbQuery .= $sqlString;
         $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
 
+        // Table language
+        $sqlString = "CREATE TABLE ".$_POST['dbName'].".language ( ".
+            "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
+            "name VARCHAR(255) NOT NULL UNIQUE, ".
+            "acronym VARCHAR(255) NOT NULL UNIQUE ".
+            "); ";
+        $dbQuery .= $sqlString;
+        $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
+
+        // Table config
+        $sqlString = "CREATE TABLE ".$_POST['dbName'].".config ( ".
+            "config_key VARCHAR(255) NOT NULL PRIMARY KEY, ".
+            "config_value VARCHAR(255) ".
+            "); ";
+        $dbQuery .= $sqlString;
+        $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
+        $sqlString = "INSERT INTO ".$_POST['dbName'].".config ".
+            "(config_key, config_value) ".
+            "VALUES ".
+            "('tmdbApiKey', ''); ";
+        $dbQuery .= $sqlString;
+        $tmpDbAnswer = $tmpDbAnswer && $dbConnection->writeData($sqlString);
+
         // Table movie
         $sqlString = "CREATE TABLE ".$_POST['dbName'].".movie ( ".
             "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ".
             "name VARCHAR(255) NOT NULL, ".
+            "year INT, ".
+            "date DATE, ".
+            "story TEXT, ".
+            "tmdb_id INT, ".
+            "language_fk INT, ".
             "type_fk INT, ".
             "storage_fk INT, ".
+            "CONSTRAINT movie_language_fk FOREIGN KEY(language_fk) REFERENCES language(id), ".
             "CONSTRAINT movie_storage_fk FOREIGN KEY(storage_fk) REFERENCES storage(id), ".
             "CONSTRAINT movie_movie_type_fk FOREIGN KEY(type_fk) REFERENCES movie_type(id) ".
             "); ";

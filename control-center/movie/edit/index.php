@@ -26,11 +26,12 @@ $movieSql = 'SELECT M.*, '.
     'LEFT JOIN director AS D ON AMD.director_fk = D.id '.
     'WHERE M.id = '.$movieId;
 $movie = $dbConnection->readData($movieSql);
-$genres = $dbConnection->readData('SELECT * FROM genre ORDER BY name; ');
-$actors = $dbConnection->readData('SELECT * FROM actor ORDER BY name; ');
-$directors = $dbConnection->readData('SELECT * FROM director ORDER BY name; ');
+//$genres = $dbConnection->readData('SELECT * FROM genre ORDER BY name; ');
+//$actors = $dbConnection->readData('SELECT * FROM actor ORDER BY name; ');
+//$directors = $dbConnection->readData('SELECT * FROM director ORDER BY name; ');
 $types = $dbConnection->readData('SELECT * FROM movie_type ORDER BY name; ');
 $storages = $dbConnection->readData('SELECT * FROM storage ORDER BY name; ');
+$languages = $dbConnection->readData('SELECT * FROM language ORDER BY name; ');
 
 
 $smarty = new Smarty();
@@ -46,11 +47,12 @@ $smarty->assign('userName', $_SESSION['userName']);
 
 $smarty->assign('movieId', $movieId);
 $smarty->assign('movie', $movie[0]);
-$smarty->assign('genres', $genres);
-$smarty->assign('actors', $actors);
-$smarty->assign('directors', $directors);
+//$smarty->assign('genres', $genres);
+//$smarty->assign('actors', $actors);
+//$smarty->assign('directors', $directors);
 $smarty->assign('types', $types);
 $smarty->assign('storages', $storages);
+$smarty->assign('languages', $languages);
 
 $smarty->display('control-center/movie-edit.tpl');
 

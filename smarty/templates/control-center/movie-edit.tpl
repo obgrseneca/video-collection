@@ -1,105 +1,99 @@
-{literal}
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#editMovie').click(function() {
-            $.ajax({
-                type: 'post',
-                url: '{/literal}{$baseUrl}{literal}control-center/movie/edit/edit.php',
-                dataType: 'json',
-                data: {
-                    movieName: $('#movieName').val(),
-                    type: $('#movieType').val(),
-                    storage: $('#storage').val(),
-                    genres: $('#genres').val(),
-                    actors: $('#actors').val(),
-                    directors: $('#directors').val(),
-                    movieId: {/literal}{$movie.id}{literal}
-                },
-                success: function(data) {
-                    if (data) {
-                        vcMain.showMainView('control-center/movie/');
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                }
-            });
-        });
-        $('#cancel').click(function() {
-            vcMain.showMainView('control-center/movie/');
-        });
+    {literal}
+    var languages = {'-1': ''};
+    {/literal}
+    {foreach from=$languages item="lRow"}
+    languages['{$lRow.id}'] = '{$lRow.acronym}';
+    {/foreach}
 
-        $.ajax({
-            type: 'get',
-            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/genre.php',
-            dataType: 'text',
-            data: {
-                genres: '{/literal}{$movie.genres}{literal}'
-            },
-            success: function(data) {
-                $('#genreSelection').html(data)
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
+    function queryTmdb() {
+        {literal}
+        $('#tmdbResult').css({display: 'block'});
+        {/literal}
+        var movieName = $('#movieName').val();
+        var language = languages[$('#language').val()];
+        tmdb.getMovieData(movieName, language);
+    }
 
-        $.ajax({
-            type: 'get',
-            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/actor.php',
-            dataType: 'text',
-            data: {
-                actors: '{/literal}{$movie.actors}{literal}'
-            },
-            success: function(data) {
-                $('#actorSelection').html(data)
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
+    function fillMovieFields(index) {
+        var i;
+        $('#date').val(tmdb.movieData[index].date);
+        $('#movieName').val(tmdb.movieData[index].title);
+        for (i=0; i<tmdb.movieData[index].genres.length; i++) {
+            addGenre(tmdb.movieData[index].genres[i]);
+        }
+        for (i=0; i<tmdb.movieData[index].actors.length; i++) {
+            addActor(tmdb.movieData[index].actors[i]);
+        }
+        for (i=0; i<tmdb.movieData[index].directors.length; i++) {
+            addDirector(tmdb.movieData[index].directors[i]);
+        }
 
-        $.ajax({
-            type: 'get',
-            url: '{/literal}{$baseUrl}{literal}control-center/movie/ajax/director.php',
-            dataType: 'text',
-            data: {
-                directors: '{/literal}{$movie.directors}{literal}'
-            },
-            success: function(data) {
-                $('#directorSelection').html(data)
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
-    });
+        {literal}
+        $('#tmdbResult').css({display: 'none'});
+        {/literal}
+    }
 </script>
-{/literal}
 
 <h2>New movie</h2>
-<p>
-    <input type="hidden" id="movieId" value="{$movie.id}" />
-    <label for="movieName">Movie name</label>
-    <input type="text" id="movieName" value="{$movie.name}" /><br />
-    <label for="movieType">Movie type</label>
-    <select id="movieType">
-        <option value="-1">Please choose</option>
-        {foreach from=$types item="tRow"}
-            <option value="{$tRow.id}"{if $tRow.id == $movie.type_fk} selected="selected"{/if}>{$tRow.name}</option>
-        {/foreach}
-    </select><br />
-    <label for="storage">Storage media</label>
-    <select id="storage">
-        <option value="-1">Please choose</option>
-        {foreach from=$storages item="sRow"}
-            <option value="{$sRow.id}"{if $sRow.id == $movie.storage_fk} selected="selected"{/if}>{$sRow.name}</option>
-        {/foreach}
-    </select><br />
-    <div id="genreSelection"></div>
-    <div id="actorSelection"></div>
-    <div id="directorSelection"></div>
-    <br />
-    <button type="button" id="editMovie">Edit movie</button>
-    <button type="button" id="cancel">Cancel</button>
-</p>
+<table>
+    <tr>
+        <th>Movie name</th><td><input type="text" id="movieName" value="{$movie.name}" /></td>
+    </tr>
+    <tr>
+        <th>Language</th><td>
+            <select id="language">
+                <option value="-1">Please choose</option>
+                {foreach from=$languages item="lRow"}
+                    <option value="{$lRow.id}"{if $lRow.id == $movie.language_fk} selected="selected"{/if}>{$lRow.name}>{$lRow.acronym} - {$lRow.name}</option>
+                {/foreach}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>Movie type</th><td>
+            <select id="movieType">
+                <option value="-1">Please choose</option>
+                {foreach from=$types item="tRow"}
+                    <option value="{$tRow.id}"{if $tRow.id == $movie.type_fk} selected="selected"{/if}>{$tRow.name}</option>
+                {/foreach}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>Storage</th><td>
+            <select id="storage">
+                <option value="-1">Please choose</option>
+                {foreach from=$storages item="sRow"}
+                    <option value="{$sRow.id}"{if $sRow.id == $movie.storage_fk} selected="selected"{/if}>{$sRow.name}</option>
+                {/foreach}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button type="button" id="addTmdbInfo" onclick="queryTmdb();">
+                Query TMDB
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="tmdbResult" style="display: none;"></div>
+        </td>
+    </tr>
+    <tr>
+        <th>Date</th><td><input type="text" id="date" value="{$movie.date}" /></div></td>
+    </tr>
+    <tr>
+        <th>Genres</th><td><div id="genreSelection"></div></td>
+    </tr>
+    <tr>
+        <th>Actors</th><td><div id="actorSelection"></div></td>
+    </tr>
+    <tr>
+        <th>Directors</th><td><div id="directorSelection"></div></td>
+    </tr>
+</table><br />
+<button type="button" id="editMovie">Edit movie</button>
+<button type="button" id="cancel">Cancel</button>

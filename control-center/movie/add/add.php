@@ -13,6 +13,9 @@ require $_SESSION['baseDir'].'/classes/DbConnectionClass.php';
 $dbConnection = new DbConnectionClass();
 
 $movieName = $dbConnection->escapeString((!empty($_POST['movieName'])) ? $_POST['movieName'] : '', 'str');
+$year = $dbConnection->escapeString((!empty($_POST['year'])) ? $_POST['year'] : 0);
+$date = $dbConnection->escapeString((!empty($_POST['date'])) ? $_POST['date'] : '0000-00-00', 'str');
+$language = $dbConnection->escapeString((!empty($_POST['language'])) ? $_POST['language'] : -1);
 $type = $dbConnection->escapeString((!empty($_POST['type'])) ? $_POST['type'] : -1);
 $storage = $dbConnection->escapeString((!empty($_POST['storage'])) ? $_POST['storage'] : -1);
 $genres = (!empty($_POST['genres'])) ? $_POST['genres'] : '';
@@ -23,10 +26,11 @@ $directors = (!empty($_POST['directors'])) ? $_POST['directors'] : '';
 $directors = explode(';', $directors);
 
 $dbAnswer = true;
-$sqlString = "INSERT INTO movie ".
-    "(name, type_fk, storage_fk) ".
-    "VALUES ".
-    "(".$movieName.", ".$type.", ".$storage."); ";
+$sqlString = "INSERT INTO movie ";
+$sqlString .= "(name, date, language_fk, type_fk, storage_fk) ";
+$sqlString .= "VALUES ";
+$sqlString .= "(".$movieName.", ".$date.", ".$language.", ".$type.", ".$storage."); ";
+#echo $sqlString;
 $movieId = $dbConnection->writeData($sqlString, true);
 $movieId = ($movieId) ? $movieId : -1;
 $dbAnswer = (($movieId != -1) ? true : false) && $dbAnswer;
