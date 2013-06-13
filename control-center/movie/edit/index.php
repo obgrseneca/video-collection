@@ -13,11 +13,12 @@ require $_SESSION['baseDir'].'/classes/DbConnectionClass.php';
 $dbConnection = new DbConnectionClass();
 $movieId = $dbConnection->escapeString((!empty($_GET['movieId'])) ? $_GET['movieId'] : -1);
 
-$movieSql = 'SELECT M.*, '.
+$movieSql = 'SELECT M.*, S.name AS storage_name, '.
     'GROUP_CONCAT(DISTINCT G.name ORDER BY G.name SEPARATOR \'; \') AS genres, '.
     'GROUP_CONCAT(DISTINCT A.name ORDER BY A.name SEPARATOR \'; \') AS actors, '.
     'GROUP_CONCAT(DISTINCT D.name ORDER BY D.name SEPARATOR \'; \') AS directors '.
     'FROM movie AS M '.
+    'LEFT JOIN storage AS S ON M.storage_fk = S.id '.
     'LEFT JOIN assignment_movie_genre AS AMG ON M.id = AMG.movie_fk '.
     'LEFT JOIN genre AS G ON AMG.genre_fk = G.id '.
     'LEFT JOIN assignment_movie_actor AS AMA ON M.id = AMA.movie_fk '.

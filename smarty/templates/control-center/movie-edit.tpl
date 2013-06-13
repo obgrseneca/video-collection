@@ -62,12 +62,12 @@
     </tr>
     <tr>
         <th>Storage</th><td>
-            <select id="storage">
-                <option value="-1">Please choose</option>
-                {foreach from=$storages item="sRow"}
-                    <option value="{$sRow.id}"{if $sRow.id == $movie.storage_fk} selected="selected"{/if}>{$sRow.name}</option>
+            <input list="storageList" id="storage" value="{$movie.storage_name}" />
+            <datalist id="storageList">
+                {foreach from=$storages item=sRow}
+                    <option>{$sRow.name}</option>
                 {/foreach}
-            </select>
+            </datalist>
         </td>
     </tr>
     <tr>
